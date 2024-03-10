@@ -1,12 +1,16 @@
 package com.github.aliftrd.gitseeker.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.github.aliftrd.gitseeker.R
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.aliftrd.gitseeker.data.response.UserResponse
+import com.github.aliftrd.gitseeker.data.source.remote.response.UserResponse
 import com.github.aliftrd.gitseeker.databinding.ActivityMainBinding
 import com.github.aliftrd.gitseeker.ui.adapter.UserAdapter
 import com.github.aliftrd.gitseeker.ui.viewmodel.MainViewModel
@@ -45,8 +49,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_favorite -> startActivity(Intent(this, FavoriteActivity::class.java))
+            R.id.action_setting -> startActivity(Intent(this, SettingActivity::class.java))
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun setToolbar() {
-        supportActionBar?.hide()
+        setSupportActionBar(binding.toolbar)
     }
 
     private fun setUserData(users: List<UserResponse>) {

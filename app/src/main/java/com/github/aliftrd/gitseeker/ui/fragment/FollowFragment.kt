@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.aliftrd.gitseeker.data.response.UserResponse
+import com.github.aliftrd.gitseeker.data.source.remote.response.UserResponse
 import com.github.aliftrd.gitseeker.databinding.FragmentFollowBinding
 import com.github.aliftrd.gitseeker.ui.adapter.FollowPagerAdapter
 import com.github.aliftrd.gitseeker.ui.adapter.UserAdapter

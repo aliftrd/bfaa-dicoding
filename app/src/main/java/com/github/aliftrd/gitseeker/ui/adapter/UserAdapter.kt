@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.github.aliftrd.gitseeker.data.response.UserResponse
+import com.github.aliftrd.gitseeker.data.source.remote.response.UserResponse
 import com.github.aliftrd.gitseeker.databinding.ItemUserBinding
 import com.github.aliftrd.gitseeker.ui.DetailUserActivity
 

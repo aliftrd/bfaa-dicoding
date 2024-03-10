@@ -1,16 +1,21 @@
 package com.github.aliftrd.gitseeker.ui.viewmodel
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.github.aliftrd.gitseeker.data.response.DetailUserResponse
-import com.github.aliftrd.gitseeker.data.retrofit.ApiConfig
+import com.github.aliftrd.gitseeker.data.UserFavoriteRepository
+import com.github.aliftrd.gitseeker.data.source.local.entity.UserFavorite
+import com.github.aliftrd.gitseeker.data.source.remote.response.DetailUserResponse
+import com.github.aliftrd.gitseeker.data.source.remote.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailUserViewModel : ViewModel() {
+class DetailUserViewModel(application: Application) : ViewModel() {
+    private val userFavoriteRepository = UserFavoriteRepository(application)
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -19,6 +24,11 @@ class DetailUserViewModel : ViewModel() {
 
     private val _user = MutableLiveData<DetailUserResponse>()
     val user: LiveData<DetailUserResponse> = _user
+
+    val isFavorite = MutableLiveData<Boolean>()
+
+    fun setFavorite(user: UserFavorite) = if (isFavorite.value == true) userFavoriteRepository.unsetFavorite(user) else userFavoriteRepository.setFavorite(user)
+    fun checkFavorite(username: String): LiveData<UserFavorite> = userFavoriteRepository.checkFavorite(username)
 
     fun showUser(username: String) {
         _isLoading.value = true

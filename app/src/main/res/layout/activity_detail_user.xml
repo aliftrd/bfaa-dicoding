@@ -39,98 +39,42 @@
                         android:layout_gravity="center_vertical"
                         tools:src="@tools:sample/avatars" />
 
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical">
 
                         <LinearLayout
+                            android:id="@+id/user_meta_info"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="@dimen/layout_margin_horizontal"
                             android:baselineAligned="false"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent">
 
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="3"
-                                android:gravity="center"
-                                android:orientation="vertical">
+                            <include
+                                android:id="@+id/repoCount"
+                                layout="@layout/user_meta_info" />
 
-                                <TextView
-                                    android:id="@+id/repo_count"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/repository"
-                                    android:textSize="13sp"
-                                    android:textStyle="bold" />
+                            <include
+                                android:id="@+id/followerCount"
+                                layout="@layout/user_meta_info" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/repository"
-                                    android:textSize="13sp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="3"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/follower_count"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/follower"
-                                    android:textSize="13sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/follower"
-                                    android:textSize="13sp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="3"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/following_count"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/follower"
-                                    android:textSize="13sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/following"
-                                    android:textSize="13sp" />
-                            </LinearLayout>
+                            <include
+                                android:id="@+id/followingCount"
+                                layout="@layout/user_meta_info" />
 
                         </LinearLayout>
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_go_to_profile"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/layout_margin_horizontal"
-                            android:layout_marginTop="@dimen/margin"
-                            android:text="@string/go_to_profile" />
-                    </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/user_detail_wrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_margin_vertical"
@@ -156,6 +100,33 @@
                         android:drawablePadding="@dimen/margin"
                         app:drawableTint="?attr/colorOnSurface"
                         app:drawableLeftCompat="@drawable/ic_baseline_location_on" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/user_detail_wrapper">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_favorite"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/favorite"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="@dimen/margin" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_go_to_profile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/go_to_profile"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/margin"/>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 

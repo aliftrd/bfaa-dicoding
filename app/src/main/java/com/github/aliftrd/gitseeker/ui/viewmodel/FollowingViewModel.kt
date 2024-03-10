@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.github.aliftrd.gitseeker.data.response.UserResponse
-import com.github.aliftrd.gitseeker.data.retrofit.ApiConfig
+import com.github.aliftrd.gitseeker.data.source.remote.response.UserResponse
+import com.github.aliftrd.gitseeker.data.source.remote.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

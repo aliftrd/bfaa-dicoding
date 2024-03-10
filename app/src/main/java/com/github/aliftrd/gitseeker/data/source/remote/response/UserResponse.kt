@@ -1,4 +1,4 @@
-package com.github.aliftrd.gitseeker.data.response
+package com.github.aliftrd.gitseeker.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 

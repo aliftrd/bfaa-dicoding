@@ -1,4 +1,4 @@
-package com.github.aliftrd.gitseeker.data.retrofit
+package com.github.aliftrd.gitseeker.data.source.remote.retrofit
 
 import com.github.aliftrd.gitseeker.BuildConfig
 import okhttp3.Interceptor

@@ -1,6 +1,8 @@
-package com.github.aliftrd.gitseeker.data.retrofit
+package com.github.aliftrd.gitseeker.data.source.remote.retrofit
 
-import com.github.aliftrd.gitseeker.data.response.*
+import com.github.aliftrd.gitseeker.data.source.remote.response.DetailUserResponse
+import com.github.aliftrd.gitseeker.data.source.remote.response.UserResponse
+import com.github.aliftrd.gitseeker.data.source.remote.response.UserSearchResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

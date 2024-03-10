@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.FavoriteActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -17,41 +16,24 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/app_name"
+            app:title="@string/user_favorite"
             app:titleTextColor="?attr/colorOnPrimary"
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed" />
-
-        <com.google.android.material.search.SearchBar
-            android:id="@+id/search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/margin"
-            app:backgroundTint="?attr/colorOnPrimary"
-            android:hint="@string/search_hint"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvUser"
+        android:id="@+id/rv_favorite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_user"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <com.google.android.material.search.SearchView
-        android:id="@+id/search_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:hint="@string/search_hint"
-        app:layout_anchor="@id/search_bar"
-        app:backgroundTint="?attr/colorOnPrimary"/>
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
+    <TextView
+        android:id="@+id/tv_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:visibility="gone"
-        android:layout_gravity="center" />
-
+        android:text="@string/no_user_favorite_found"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

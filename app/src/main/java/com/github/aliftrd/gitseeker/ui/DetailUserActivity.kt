@@ -6,46 +6,60 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.core.net.toUri
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.github.aliftrd.gitseeker.R
+import com.github.aliftrd.gitseeker.data.source.local.entity.UserFavorite
 import com.github.aliftrd.gitseeker.databinding.ActivityDetailUserBinding
 import com.github.aliftrd.gitseeker.ui.adapter.FollowPagerAdapter
 import com.github.aliftrd.gitseeker.ui.viewmodel.DetailUserViewModel
-import com.github.aliftrd.gitseeker.util.getFormattedNumber
+import com.github.aliftrd.gitseeker.ui.viewmodel.ViewModelUserFactory
+import com.github.aliftrd.gitseeker.util.Number
 import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailUserBinding
-    private val detailUserViewModel by viewModels<DetailUserViewModel>()
+    private lateinit var detailUserViewModel: DetailUserViewModel
     private lateinit var username: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         username = intent.getStringExtra(EXTRA_USER) as String
-
         setToolbar()
         setViewPager()
+
+        detailUserViewModel = obtainViewModel(this)
+        if (detailUserViewModel.user.value == null) {
+            detailUserViewModel.showUser(username)
+        }
 
         detailUserViewModel.isLoading.observe(this) {
             showLoading(it)
         }
 
-        if (detailUserViewModel.user.value == null) {
-            detailUserViewModel.showUser(username)
+        detailUserViewModel.isError.observe(this) {
+            if (it) showErrorOccurred(it)
         }
 
         detailUserViewModel.user.observe(this) { user ->
             with(binding) {
                 Glide.with(this@DetailUserActivity).load(user.avatarUrl).into(userImage)
-                repoCount.text = getFormattedNumber(user.publicRepos.toLong())
-                followerCount.text = getFormattedNumber(user.followers.toLong())
-                followingCount.text = getFormattedNumber(user.following.toLong())
+                with(repoCount) {
+                    count.text = Number.format(user.publicRepos.toLong())
+                    title.text = resources.getString(R.string.repository)
+                }
+                with(followerCount) {
+                    count.text = Number.format(user.followers.toLong())
+                    title.text = resources.getString(R.string.follower)
+                }
+                with(followingCount) {
+                    count.text = Number.format(user.following.toLong())
+                    title.text = resources.getString(R.string.following)
+                }
                 name.text = user.name ?: "-"
                 location.text = user.location ?: "-"
 
@@ -54,20 +68,39 @@ class DetailUserActivity : AppCompatActivity() {
                         startActivity(this)
                     }
                 }
+
+                btnFavorite.setOnClickListener {
+                    val userFavorite = UserFavorite(
+                        user.username,
+                        user.avatarUrl,
+                    )
+
+                    detailUserViewModel.setFavorite(userFavorite)
+                }
             }
         }
 
-        detailUserViewModel.isError.observe(this) {
-            if (it) showErrorOccurred(it)
+        detailUserViewModel.checkFavorite(username).observe(this) {
+            detailUserViewModel.isFavorite.postValue(it != null)
         }
 
+        detailUserViewModel.isFavorite.observe(this) {
+            with(binding.btnFavorite) {
+                text = if (it) getString(R.string.unfavorite) else getString(R.string.favorite)
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             android.R.id.home -> finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun obtainViewModel(activity: AppCompatActivity): DetailUserViewModel {
+        val factory = ViewModelUserFactory.getInstance(activity.application)
+        return ViewModelProvider(activity, factory)[DetailUserViewModel::class.java]
     }
 
     private fun setToolbar() {
