@@ -23,7 +23,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "baseUrl", "\"https://api.github.com/\"")
-        buildConfigField("String", "apiKey", "\"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\"")
+        buildConfigField("String", "apiKey", "\"${localProperties.getProperty("apiKey")}\"")
     }
 
     buildFeatures {
